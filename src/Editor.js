@@ -35,16 +35,21 @@ const editor = function(editable, attr, format, editorClass, defaultValue, ignor
                      (editable.className ? (' ' + editable.className) : '');
 
     if (editable.type === 'select') {// process select input
-      let options = [];
+      const options = [];
       let { values } = editable.options;
-      const { textKey, valueKey } = editable.options;
+      const { textKey, valueKey, hasDefaultOption, defaultText } = editable.options;
       if (Utils.isFunction(values)) {
         values = values(row);
+      }
+      if (hasDefaultOption) {
+        options.push((
+          <option key='-1' value='' disabled>{ defaultText }</option>
+        ));
       }
       if (Array.isArray(values)) {// only can use arrray data for options
         let text;
         let value;
-        options = values.map((option, i) => {
+        values.map((option, i) => {
           if (typeof option === 'object') {
             text = textKey ? option[textKey] : option.text;
             value = valueKey ? option[valueKey] : option.value;
@@ -52,9 +57,7 @@ const editor = function(editable, attr, format, editorClass, defaultValue, ignor
             text = format ? format(option) : option;
             value = option;
           }
-          return (
-            <option key={ 'option' + i } value={ value }>{ text }</option>
-          );
+          options.push(<option key={ 'option' + i } value={ value }>{ text }</option>);
         }
         );
       }

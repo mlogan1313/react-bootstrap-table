@@ -71,7 +71,7 @@ export default class EditCellClassNameTable extends React.Component {
           <TableHeaderColumn dataField='id' isKey={ true }>Job ID</TableHeaderColumn>
           <TableHeaderColumn dataField='status' editable={ { validator: jobStatusValidator } } editColumnClassName={ this.editingJobStatus } invalidEditColumnClassName={ this.invalidJobStatus }>Job Status</TableHeaderColumn>
           <TableHeaderColumn dataField='name' editable={ { type: 'textarea', validator: jobNameValidator } } editColumnClassName='editing-jobsname-class' invalidEditColumnClassName='invalid-jobsname-class'>Job Name</TableHeaderColumn>
-          <TableHeaderColumn dataField='type' editable={ { type: 'select', options: { values: jobTypes } } }>Job Type</TableHeaderColumn>
+          <TableHeaderColumn dataField='type' editable={ { type: 'select', options: { hasDefaultOption: true, defaultText: 'Hey', values: jobTypes } } }>Job Type</TableHeaderColumn>
           <TableHeaderColumn dataField='active' editable={ { type: 'checkbox', options: { values: 'Y:N' } } }>Active</TableHeaderColumn>
       </BootstrapTable>
     );
